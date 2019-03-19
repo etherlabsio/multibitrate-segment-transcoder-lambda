@@ -23,14 +23,18 @@
 
 
 [[constraint]]
- name="github.com/etherlabsio/avcapture"
- branch = "master"
+  name="github.com/etherlabsio/avcapture"
+  branch = "master"
 
- [[constraint]]
+[[constraint]]
   name = "github.com/aws/aws-sdk-go"
   version = "1.12.54"
 
-  [[constraint]]
+[[constraint]]
   name = "github.com/google/go-cloud"
   version = "v0.7.0"
+
+[[constraint]]
+  name = "github.com/etherlabsio/hls"
+  revision = "203148c23a7b55c45cf8d59aa8aafc90c373d189"
 

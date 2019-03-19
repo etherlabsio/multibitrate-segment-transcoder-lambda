@@ -37,15 +37,22 @@
     "aws/session",
     "aws/signer/v4",
     "internal/ini",
+    "internal/s3err",
     "internal/sdkio",
     "internal/sdkrand",
     "internal/sdkuri",
     "internal/shareddefaults",
     "private/protocol",
+    "private/protocol/eventstream",
+    "private/protocol/eventstream/eventstreamapi",
     "private/protocol/query",
     "private/protocol/query/queryutil",
     "private/protocol/rest",
+    "private/protocol/restxml",
     "private/protocol/xml/xmlutil",
+    "service/s3",
+    "service/s3/s3iface",
+    "service/s3/s3manager",
     "service/sts",
   ]
   pruneopts = ""
@@ -70,6 +77,13 @@
   pruneopts = ""
   revision = "ae7e3367f1fd54d4173fd706d32e1c32ca03af9c"
   version = "v0.2.3"
+
+[[projects]]
+  digest = "1:0a6471edcbae61c5176aeece6638b3a88caf25ee68988eff8332a9ee5c8b0f04"
+  name = "github.com/etherlabsio/hls"
+  packages = ["pkg/hls"]
+  pruneopts = ""
+  revision = "203148c23a7b55c45cf8d59aa8aafc90c373d189"
 
 [[projects]]
   digest = "1:b6e1a9a7df610a4175163db6d0a22966597bb48e6aeba11b4174aa118bd4f5a5"
@@ -113,6 +127,7 @@
   packages = [
     "blob",
     "blob/driver",
+    "blob/s3blob",
   ]
   pruneopts = ""
   revision = "e981f0586e2290f34ecf78282261b3693a894ec8"
@@ -148,13 +163,10 @@
     "github.com/aws/aws-lambda-go/lambda",
     "github.com/aws/aws-sdk-go/aws",
     "github.com/aws/aws-sdk-go/aws/session",
-    "github.com/etherlabsio/avcapture/pkg/commander",
-    "github.com/etherlabsio/avcapture/pkg/ffmpeg",
-    "github.com/etherlabsio/m3u8",
+    "github.com/etherlabsio/hls/pkg/hls",
     "github.com/etherlabsio/pkg/logutil",
     "github.com/go-kit/kit/log",
-    "github.com/google/go-cloud/blob",
-    "github.com/pkg/errors",
+    "github.com/google/go-cloud/blob/s3blob",
   ]
   solver-name = "gps-cdcl"
   solver-version = 1

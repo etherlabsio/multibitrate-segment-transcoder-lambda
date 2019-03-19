@@ -10,7 +10,7 @@ import (
 	"github.com/aws/aws-lambda-go/lambda"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
-	"github.com/etherlabsio/multirate-hls-segment-transcoder-lambda/pkg/hls"
+	"github.com/etherlabsio/hls/pkg/hls"
 	"github.com/etherlabsio/pkg/logutil"
 	"github.com/go-kit/kit/log"
 	"github.com/google/go-cloud/blob/s3blob"
@@ -56,9 +56,9 @@ func main() {
 			return nil
 		}
 
-		logger.Log("lambda-function", "etherlabmdas-hls-multirate", "bucket", bucketName, "segment", key)
+		logger.Log("lambda-function", "ether-hls-multirate", "bucket", bucketName, "segment", key)
 
-		m, err := hls.NewMultirateTranscoder(bucket, event, "./bin/ffmpeg")
+		m, err := hls.NewMultirateTranscoder(bucket, event, "./bin/ffmpegexec.sh")
 		defer m.Close()
 		if err != nil {
 			logutil.WithError(logger, err).Log("failure in creating new multirate transcoder call")

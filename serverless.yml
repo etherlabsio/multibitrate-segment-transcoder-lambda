@@ -1,19 +1,14 @@
-service: ether 
+service: ether
 
 frameworkVersion: ">=1.28.0 <2.0.0"
-
-custom: ${file(./env.yml)}
 
 provider:
   name: aws
   runtime: go1.x
   memorySize: 1024
   timeout: 60
-  stage: ${opt:stage,'staging'}
+  stage: hls
   region: us-east-1
-  profile: ${self:custom.${self:provider.stage}.profile}
-  environment:
-    ACTIVE_ENV: ${self:provider.stage}
   iamRoleStatements:
     -  Effect: "Allow"
        Action:
@@ -24,13 +19,15 @@ provider:
            - - "arn:aws:s3:::*"
              - "/*"
 
+
 package:
  exclude:
    - ./**
  include:
    - ./bin/**
+   - ./lib/**
 
 functions:
-  hls-multirate:
-    handler: bin/hls_multirate
+  multirate-transcoder:
+    handler: bin/hls-multirate-transcoder
 

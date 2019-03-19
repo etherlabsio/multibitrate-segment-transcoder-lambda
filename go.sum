@@ -32,6 +32,7 @@ github.com/etherlabsio/avcapture v0.0.0-20190220044427-b696a3233b8f/go.mod h1:r8
 github.com/etherlabsio/errors v0.2.3 h1:1/oP/XrR0uTpksVcIPkWJt6ghPpDwH+CP7YG3QgxoCU=
 github.com/etherlabsio/errors v0.2.3/go.mod h1:cULADM00/wa0iT9bOnu2M+ZMGuA+rLpIwVvIbOzz7EE=
 github.com/etherlabsio/healthcheck v0.0.0-20180309051318-343d97cb6361/go.mod h1:abl8KNWbwdXqLU0/YH2K2GalAlTyN7GaGHggqrVuQZY=
+github.com/etherlabsio/hls v0.0.0-20190306034844-364df2995eb0 h1:LAFKa9i5pz0QqA4/S4zYxqKIGwwn0kjkGFAx4SVCGOw=
 github.com/etherlabsio/m3u8 v0.0.0-20170319224502-0b86a8a8eaf3 h1:I7N6QekekoS4fQB42y6mlffq09nKdkotXOvgDeR8Dig=
 github.com/etherlabsio/m3u8 v0.0.0-20170319224502-0b86a8a8eaf3/go.mod h1:LVUaCSXoAm5CGRp6DVncBwctGcka9ibYqjsgEQTerlA=
 github.com/etherlabsio/pkg v0.0.0-20190205140756-07224d073fd3/go.mod h1:xlCQdTx1b+Bhh4kVbxNjZkYGb49kRdLKfn25EiOja+I=
