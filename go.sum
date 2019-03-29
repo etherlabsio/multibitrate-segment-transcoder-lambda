@@ -51,12 +51,15 @@ github.com/etherlabsio/go-m3u8 v0.1.2/go.mod h1:MO16rOZ2zO3nLoLovCuQKSB/RFXgGdY4
 github.com/etherlabsio/healthcheck v0.0.0-20171104190144-d6f8f3ca0965/go.mod h1:abl8KNWbwdXqLU0/YH2K2GalAlTyN7GaGHggqrVuQZY=
 github.com/etherlabsio/healthcheck v0.0.0-20180309051318-343d97cb6361/go.mod h1:abl8KNWbwdXqLU0/YH2K2GalAlTyN7GaGHggqrVuQZY=
 github.com/etherlabsio/hls v0.0.0-20190320034458-6faa403889f3 h1:kIxSh/8j0mqm8VvwJjNgtcHWvm0owmoy1OKyesZplf8=
+github.com/etherlabsio/hls v0.0.0-20190320034458-6faa403889f3/go.mod h1:AyCY3hwdDUtf32yQG+vkz1taTz22lgGsgRdcuPKVwtg=
 github.com/etherlabsio/hls v0.0.0-20190327045914-28c430f31386 h1:X3dIlBg9WgpYKzjNYmZOtOVUO23v+YmuFYFSCkZscxA=
 github.com/etherlabsio/hls v0.0.0-20190327045914-28c430f31386/go.mod h1:AyCY3hwdDUtf32yQG+vkz1taTz22lgGsgRdcuPKVwtg=
 github.com/etherlabsio/hls v0.0.0-20190327052850-930a2fa4cbfd h1:/WDB2D573qcAe8PVz28p+5wvJATMxmM3d1ggsi/bpYE=
 github.com/etherlabsio/hls v0.0.0-20190327052850-930a2fa4cbfd/go.mod h1:2xZJCAJuXvQAwReVy5bftdULDo2iVzuHxT3vMsz/3lQ=
 github.com/etherlabsio/hls v0.0.0-20190327064607-8258b919e30c h1:aiQ9jhTnZtRPGZorgHLoaMRMOHm4Mn9tF1jLbT3eIe0=
 github.com/etherlabsio/hls v0.0.0-20190327064607-8258b919e30c/go.mod h1:t87K+rjNUCPaUVJOYR9ki9De278Dk7ggnUxmXiVZc0U=
+github.com/etherlabsio/hls v0.0.0-20190329040503-69adc233d112 h1:vQCwwbIUW6hjIU1XBfpgayWpgMvdAGbBv0r9KgDSot4=
+github.com/etherlabsio/hls v0.0.0-20190329040503-69adc233d112/go.mod h1:t87K+rjNUCPaUVJOYR9ki9De278Dk7ggnUxmXiVZc0U=
 github.com/etherlabsio/pkg v0.0.0-20181229183653-4e9324bf35f3/go.mod h1:xlCQdTx1b+Bhh4kVbxNjZkYGb49kRdLKfn25EiOja+I=
 github.com/etherlabsio/pkg v0.0.0-20190205140756-07224d073fd3/go.mod h1:xlCQdTx1b+Bhh4kVbxNjZkYGb49kRdLKfn25EiOja+I=
 github.com/etherlabsio/pkg v0.0.0-20190320042459-ad96b45f17f1 h1:K6mmf32HXnRwou8pO0ONeVJ04MdgMHop2Vd6eGVs5E4=
