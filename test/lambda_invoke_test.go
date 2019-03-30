@@ -3,6 +3,7 @@ package test
 import (
 	"encoding/json"
 	"fmt"
+	"os"
 	"testing"
 
 	"github.com/aws/aws-sdk-go/aws"
@@ -24,10 +25,10 @@ func Test_lambdaInvoke(t *testing.T) {
 	}{
 		{
 			"Basic functionality",
-			"io.etherlabs.test",
+			os.Getenv("AWS_BUCKET"),
 			"recordings/hls-test/out%04d.ts",
-			5,
-			9,
+			12,
+			19,
 			[]byte{122, 108, 181, 101, 231, 152, 205, 196, 127, 105, 169, 155, 109, 124, 120, 213},
 			"51532a902859d8b493b6db31a1d1cfc5",
 			false,
@@ -62,7 +63,6 @@ func Test_lambdaInvoke(t *testing.T) {
 					fmt.Println("Error calling MyGetItemsFuntestBasicLambdaFunctionalityction")
 					return
 				}
-				//time.Sleep(2 * time.Second)
 			}
 		})
 	}
