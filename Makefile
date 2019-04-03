@@ -1,8 +1,33 @@
-.PHONY: build clean deploy
+AWS_ENV_FILE := .env.template
+include $(AWS_ENV_FILE)
+SLACK_WEBHOOK_URL="https://hooks.slack.com/services/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"
+BRANCH=$(shell git rev-parse HEAD || echo -e '$CI_COMMIT_SHA')
 
-build:
-	env GOOS=linux go build -ldflags="-s -w" -o bin/hls-multirate-transcoder cmd/hls-multirate-transcoder/main.go
-	zip -r hls-multirate-transcoder.zip bin
-clean:
-	rm -rf ./bin/*
-	rm -rf hls-multirate-transcoder.zip
+pre-deploy-notify:
+	@curl -X POST --data-urlencode 'payload={"text": "[${ENVIRONMENT}] [${BRANCH}] ${USER}: ${ARTIFACT} is being deployed"}' \
+                 ${SLACK_WEBHOOK_URL}
+
+post-deploy-notify:
+	@curl -X POST --data-urlencode 'payload={"text": "[${ENVIRONMENT}] [${BRANCH}] ${USER}: ${ARTIFACT} is deployed"}' \
+                 ${SLACK_WEBHOOK_URL}
+
+
+build_lambda:
+	GOOS=linux GOARCH=amd64 go build -tags debug -v -o ./bin/${LAMBDA_ZIP} ./cmd/${ARTIFACT} 
+	zip ./bin/${LAMBDA_ZIP}-lambda.zip ./bin/${LAMBDA_ZIP}
+
+deploy_lambda: build_lambda
+	$(MAKE) pre-deploy-notify
+	AWS_ACCESS_KEY_ID=$(AWS_ACCESS_KEY_ID) AWS_SECRET_ACCESS_KEY=$(AWS_SECRET_ACCESS_KEY) \
+		aws s3 cp bin/${LAMBDA_ZIP}-lambda.zip s3://io.etherlabs.artifacts/${ENVIRONMENT}/${LAMBDA_ZIP}-lambda.zip
+	AWS_ACCESS_KEY_ID=$(ENV_AWS_ACCESS_KEY_ID) AWS_SECRET_ACCESS_KEY=$(ENV_AWS_SECRET_ACCESS_KEY) \
+		aws lambda update-function-code --region ${REGION} --function-name ${LAMBDA_FUNCTION} --s3-bucket io.etherlabs.artifacts --s3-key ${ENVIRONMENT}/${LAMBDA_ZIP}-lambda.zip
+	$(MAKE) post-deploy-notify
+
+deploy_hls_multirate_transcoder_staging:
+	$(MAKE) deploy_lambda ENVIRONMENT=staging ARTIFACT=hls-multirate-transcoder LAMBDA_ZIP=hls-multirate-transcoder LAMBDA_FUNCTION=ether-hls-multirate-transcoder \
+		REGION=$(STAGING_AWS_REGION) ENV_AWS_ACCESS_KEY_ID=$(STAGING_AWS_ACCESS_KEY_ID) ENV_AWS_SECRET_ACCESS_KEY=$(STAGING_AWS_SECRET_ACCESS_KEY)
+
+deploy_hls_multirate_transcoder_production:
+	$(MAKE) deploy_lambda ENVIRONMENT=production ARTIFACT=hls-multirate-transcoder LAMBDA_ZIP=hls-multirate-transcoder LAMBDA_FUNCTION=ether-hls-multirate-transcoder \
+		REGION=$(AWS_REGION) ENV_AWS_ACCESS_KEY_ID=$(AWS_ACCESS_KEY_ID) ENV_AWS_SECRET_ACCESS_KEY=$(AWS_SECRET_ACCESS_KEY)
