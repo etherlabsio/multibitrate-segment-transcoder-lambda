@@ -174,7 +174,7 @@ func main() {
 
 		key := event.Key
 		// the file should be under two levels of directories
-		if 3 != len(strings.Split(key, "/")) {
+		if 4 != len(strings.Split(key, "/")) {
 			logutil.WithError(logger, errors.New("invalid key")).Log("Invalid key", key, "length is", fmt.Sprintf("%d", len(strings.Split(key, "/"))))
 			return nil
 		}

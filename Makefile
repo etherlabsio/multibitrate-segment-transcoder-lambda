@@ -1,5 +1,7 @@
-AWS_ENV_FILE := .env.template
-include $(AWS_ENV_FILE)
+AWS_ACCESS_KEY_ID=$(shell aws configure get aws_access_key_id --profile ${AWS_PROFILE})
+AWS_SECRET_ACCESS_KEY=$(shell aws configure get aws_secret_access_key --profile ${AWS_PROFILE})
+AWS_REGION=$(shell aws configure get region --profile ${AWS_PROFILE})
+
 SLACK_WEBHOOK_URL="https://hooks.slack.com/services/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"
 BRANCH=$(shell git rev-parse HEAD || echo -e '$CI_COMMIT_SHA')
 
@@ -20,14 +22,18 @@ deploy_lambda: build_lambda
 	$(MAKE) pre-deploy-notify
 	AWS_ACCESS_KEY_ID=$(AWS_ACCESS_KEY_ID) AWS_SECRET_ACCESS_KEY=$(AWS_SECRET_ACCESS_KEY) \
 		aws s3 cp bin/${LAMBDA_ZIP}-lambda.zip s3://io.etherlabs.artifacts/${ENVIRONMENT}/${LAMBDA_ZIP}-lambda.zip
-	AWS_ACCESS_KEY_ID=$(ENV_AWS_ACCESS_KEY_ID) AWS_SECRET_ACCESS_KEY=$(ENV_AWS_SECRET_ACCESS_KEY) \
-		aws lambda update-function-code --region ${REGION} --function-name ${LAMBDA_FUNCTION} --s3-bucket io.etherlabs.artifacts --s3-key ${ENVIRONMENT}/${LAMBDA_ZIP}-lambda.zip
+	AWS_ACCESS_KEY_ID=$(AWS_ACCESS_KEY_ID) AWS_SECRET_ACCESS_KEY=$(AWS_SECRET_ACCESS_KEY) \
+		aws lambda update-function-code --region ${AWS_REGION} --function-name ${LAMBDA_FUNCTION} --s3-bucket io.etherlabs.artifacts --s3-key ${ENVIRONMENT}/${LAMBDA_ZIP}-lambda.zip
 	$(MAKE) post-deploy-notify
 
 deploy_hls_multirate_transcoder_staging:
 	$(MAKE) deploy_lambda ENVIRONMENT=staging ARTIFACT=hls-multirate-transcoder LAMBDA_ZIP=hls-multirate-transcoder LAMBDA_FUNCTION=ether-hls-multirate-transcoder \
-		REGION=$(STAGING_AWS_REGION) ENV_AWS_ACCESS_KEY_ID=$(STAGING_AWS_ACCESS_KEY_ID) ENV_AWS_SECRET_ACCESS_KEY=$(STAGING_AWS_SECRET_ACCESS_KEY)
+		REGION=$(AWS_REGION) AWS_ACCESS_KEY_ID=$(AWS_ACCESS_KEY_ID) AWS_SECRET_ACCESS_KEY=$(AWS_SECRET_ACCESS_KEY)
 
 deploy_hls_multirate_transcoder_production:
 	$(MAKE) deploy_lambda ENVIRONMENT=production ARTIFACT=hls-multirate-transcoder LAMBDA_ZIP=hls-multirate-transcoder LAMBDA_FUNCTION=ether-hls-multirate-transcoder \
-		REGION=$(AWS_REGION) ENV_AWS_ACCESS_KEY_ID=$(AWS_ACCESS_KEY_ID) ENV_AWS_SECRET_ACCESS_KEY=$(AWS_SECRET_ACCESS_KEY)
+		REGION=$(AWS_REGION) AWS_ACCESS_KEY_ID=$(AWS_ACCESS_KEY_ID) AWS_SECRET_ACCESS_KEY=$(AWS_SECRET_ACCESS_KEY)
+
+deploy_hls_multirate_transcoder_staging2:
+	$(MAKE) deploy_lambda ENVIRONMENT=staging2 ARTIFACT=hls-multirate-transcoder LAMBDA_ZIP=hls-multirate-transcoder LAMBDA_FUNCTION=ether-hls-multirate-transcoder \
+		REGION=$(AWS_REGION) AWS_ACCESS_KEY_ID=$(AWS_ACCESS_KEY_ID) AWS_SECRET_ACCESS_KEY=$(_AWS_SECRET_ACCESS_KEY)
