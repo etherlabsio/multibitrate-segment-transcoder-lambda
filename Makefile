@@ -20,9 +20,7 @@ build_lambda:
 
 deploy_lambda: build_lambda
 	$(MAKE) pre-deploy-notify
-	AWS_ACCESS_KEY_ID=$(AWS_ACCESS_KEY_ID) AWS_SECRET_ACCESS_KEY=$(AWS_SECRET_ACCESS_KEY) \
-		aws s3 cp bin/${LAMBDA_ZIP}-lambda.zip s3://io.etherlabs.artifacts/${ENVIRONMENT}/${LAMBDA_ZIP}-lambda.zip
-	AWS_ACCESS_KEY_ID=$(AWS_ACCESS_KEY_ID) AWS_SECRET_ACCESS_KEY=$(AWS_SECRET_ACCESS_KEY) \
+	    aws s3 cp --profile production bin/${LAMBDA_ZIP}-lambda.zip s3://io.etherlabs.artifacts/${ENVIRONMENT}/${LAMBDA_ZIP}-lambda.zip
 		aws lambda update-function-code --region ${AWS_REGION} --function-name ${LAMBDA_FUNCTION} --s3-bucket io.etherlabs.artifacts --s3-key ${ENVIRONMENT}/${LAMBDA_ZIP}-lambda.zip
 	$(MAKE) post-deploy-notify
 
